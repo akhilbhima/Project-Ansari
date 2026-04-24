@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Goat Sponsorship — New Mercy Community Church</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://use.typekit.net/nby5ubp.css" />
+<style>
+  :root {
+    --font-sans: "clother", ui-sans-serif, system-ui, sans-serif;
+    --font-serif: "new-spirit", Georgia, "Times New Roman", serif;
+    --cinematic-dark: oklch(0.13 0.005 260);
+    --warm-white: oklch(0.98 0.005 80);
+    --warm-gray-50: oklch(0.97 0.005 80);
+    --warm-gray-100: oklch(0.94 0.005 80);
+    --accent-gold: oklch(0.78 0.12 80);
+    --accent-gold-light: oklch(0.88 0.08 80);
+    --accent-gold-dark: oklch(0.65 0.14 80);
+    --gray-900: oklch(0.22 0.005 260);
+    --gray-500: oklch(0.55 0 0);
+    --gray-400: oklch(0.68 0 0);
+    --gray-950: oklch(0.17 0.005 260);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; overflow-x: hidden; }
+  body {
+    margin: 0; font-family: var(--font-sans);
+    background: var(--warm-white); color: var(--gray-900);
+    -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+  .wrap { max-width: 1400px; margin: 0 auto; padding: 0 24px; }
+  .eyebrow {
+    color: var(--accent-gold); font-size: 12px; font-weight: 600;
+    letter-spacing: 0.4em; text-transform: uppercase;
+  }
+  .eyebrow.dark { color: var(--accent-gold-dark); }
+  .rule-gold { width: 40px; height: 1px; background: color-mix(in oklch, var(--accent-gold) 50%, transparent); }
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.9s ease, transform 0.9s ease; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  /* ---------- header ---------- */
+  header#siteHeader {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    transition: background .4s ease, backdrop-filter .4s ease;
+  }
+  header#siteHeader.scrolled {
+    background: color-mix(in oklch, var(--warm-white) 92%, transparent);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+  }
+  header#siteHeader .bar {
+    display: flex; align-items: center; justify-content: space-between; padding: 18px 0;
+  }
+  header#siteHeader .header-left { display: flex; align-items: center; gap: 40px; }
+  header#siteHeader .brand { display: flex; align-items: center; gap: 12px; }
+  header#siteHeader .brand img { filter: brightness(0) invert(1); transition: filter .4s ease; }
+  header#siteHeader.scrolled .brand img { filter: none; }
+  header#siteHeader .brand .name {
+    color: #fff; font-size: 13px; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase; transition: color .4s ease;
+  }
+  header#siteHeader.scrolled .brand .name { color: var(--gray-900); }
+  header#siteHeader nav.main { display: flex; align-items: center; gap: 28px; }
+  header#siteHeader nav.main a {
+    color: rgba(255,255,255,0.75); font-size: 13px; font-weight: 500; transition: color .4s ease;
+  }
+  header#siteHeader.scrolled nav.main a { color: color-mix(in oklch, var(--gray-900) 75%, transparent); }
+  header#siteHeader nav.main a:hover { color: var(--accent-gold-light); }
+  header#siteHeader.scrolled nav.main a:hover { color: var(--accent-gold-dark); }
+  header#siteHeader .social { display: flex; align-items: center; gap: 18px; }
+  header#siteHeader .social a { color: rgba(255,255,255,0.55); transition: color .4s ease; }
+  header#siteHeader.scrolled .social a { color: color-mix(in oklch, var(--gray-900) 60%, transparent); }
+  header#siteHeader .social a:hover { color: var(--accent-gold-light); }
+  header#siteHeader.scrolled .social a:hover { color: var(--accent-gold-dark); }
+  header#siteHeader .social svg { width: 18px; height: 18px; display: block; }
+  header#siteHeader .hamburger { display: none; background: none; border: 0; color: #fff; cursor: pointer; padding: 6px; }
+  header#siteHeader.scrolled .hamburger { color: var(--gray-900); }
+  @media (max-width: 1024px) {
+    header#siteHeader nav.main, header#siteHeader .social a { display: none; }
+    header#siteHeader .hamburger { display: inline-flex; }
+  }
+  .mobile-menu {
+    position: fixed; inset: 0; z-index: 60;
+    background: color-mix(in oklch, var(--cinematic-dark) 95%, transparent);
+    backdrop-filter: blur(16px);
+    display: none; align-items: center; justify-content: center; flex-direction: column;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu .close { position: absolute; top: 24px; right: 24px; background: none; border: 0; color: rgba(255,255,255,0.7); cursor: pointer; }
+  .mobile-menu nav { display: flex; flex-direction: column; gap: 24px; align-items: center; }
+  .mobile-menu a { color: rgba(255,255,255,0.8); font-size: 24px; font-weight: 300; }
+
+  /* ---------- hero ---------- */
+  .hero {
+    position: relative; width: 100%; height: 100vh; min-height: 580px;
+    overflow: hidden;
+  }
+  .hero .bg { position: absolute; inset: 0; }
+  .hero .bg img { width: 100%; height: 100%; object-fit: cover; animation: kenBurns 24s ease-in-out infinite; }
+  .hero::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0.25) 100%);
+  }
+  .hero .content {
+    position: absolute; inset: 0; display: flex; align-items: flex-end; z-index: 2;
+  }
+  .hero .content .wrap { width: 100%; padding-bottom: 96px; }
+  .hero h1 {
+    font-family: var(--font-serif); font-weight: 400;
+    font-size: clamp(42px, 6vw, 80px); color: #fff;
+    line-height: 1.05; margin: 0 0 20px;
+  }
+  @keyframes kenBurns {
+    0%, 100% { transform: scale(1) translate(0,0); }
+    50% { transform: scale(1.08) translate(-1%, -1%); }
+  }
+
+  /* ---------- intro CTA ---------- */
+  .intro { padding: 96px 0; text-align: center; }
+  .intro h2 {
+    font-family: var(--font-serif); font-weight: 400;
+    font-size: clamp(28px, 4.5vw, 48px); color: var(--gray-900);
+    margin: 16px 0 12px; line-height: 1.15;
+  }
+  .intro .body-text {
+    color: var(--gray-500); font-size: 16px; line-height: 1.8;
+    max-width: 640px; margin: 0 auto 36px; text-wrap: pretty;
+  }
+  .intro .cta-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--accent-gold); color: var(--gray-950);
+    padding: 14px 32px; border-radius: 100px;
+    font-size: 13px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    transition: background 0.3s ease, transform 0.3s ease;
+    text-decoration: none;
+  }
+  .intro .cta-btn:hover { background: var(--accent-gold-light); transform: translateY(-2px); }
+  .intro .cta-btn svg { width: 16px; height: 16px; }
+  .intro .memo { color: var(--gray-400); font-size: 14px; font-style: italic; margin-top: 14px; }
+
+  /* ---------- why goats panel ---------- */
+  .why-panel {
+    position: relative; margin: 0 16px;
+    border-radius: 48px 48px 0 0; overflow: hidden;
+  }
+  .why-panel .panel-bg { position: absolute; inset: 0; }
+  .why-panel .panel-bg img { width: 100%; height: 100%; object-fit: cover; }
+  .why-panel .panel-bg::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.78) 100%);
+  }
+  .why-panel .panel-content {
+    position: relative; z-index: 2;
+    padding: 80px 48px 72px; max-width: 800px; margin: 0 auto; text-align: center;
+  }
+  .why-panel .eyebrow { display: block; margin-bottom: 20px; }
+  .why-panel h2 {
+    font-family: var(--font-serif); font-weight: 400;
+    font-size: clamp(28px, 4.5vw, 48px); color: #fff;
+    margin: 0 0 12px; line-height: 1.15;
+  }
+  .why-panel .rule-gold { margin: 0 auto 28px; }
+  .why-panel p {
+    color: rgba(255,255,255,0.65); font-size: 16px; line-height: 1.85; margin: 0 0 20px;
+  }
+  .why-panel blockquote {
+    font-family: var(--font-serif); font-size: clamp(22px, 3vw, 34px);
+    color: #fff; font-style: italic; line-height: 1.3; margin: 36px 0 0; padding: 0;
+  }
+  @media (max-width: 640px) { .why-panel .panel-content { padding: 56px 24px 48px; } }
+
+  /* ---------- why images ---------- */
+  .why-images {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+    max-width: 1200px; margin: -40px auto 0; padding: 0 24px;
+    position: relative; z-index: 3;
+  }
+  .why-images .img-card {
+    border-radius: 20px; overflow: hidden; aspect-ratio: 4/3;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+  }
+  .why-images .img-card img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 1.2s ease;
+  }
+  .why-images .img-card:hover img { transform: scale(1.05); }
+  @media (max-width: 640px) { .why-images { grid-template-columns: 1fr; } }
+
+  /* ---------- program section ---------- */
+  .program { padding: 96px 0; }
+  .program-layout {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 64px;
+    max-width: 1200px; margin: 0 auto; padding: 0 24px; align-items: center;
+  }
+  .program-img {
+    border-radius: 20px; overflow: hidden; aspect-ratio: 4/5;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+  }
+  .program-img img { width: 100%; height: 100%; object-fit: cover; }
+  .program-text .eyebrow { display: block; margin-bottom: 16px; }
+  .program-text h2 {
+    font-family: var(--font-serif); font-weight: 400;
+    font-size: clamp(26px, 3.5vw, 42px); color: var(--gray-900);
+    margin: 0 0 16px; line-height: 1.2;
+  }
+  .program-text .rule-gold { margin-bottom: 24px; }
+  .program-text p { color: var(--gray-500); font-size: 16px; line-height: 1.8; margin: 0 0 20px; }
+  @media (max-width: 768px) { .program-layout { grid-template-columns: 1fr; } }
+
+  /* ---------- seeding banner ---------- */
+  .seeding {
+    position: relative; margin: 0 16px;
+    border-radius: 48px 48px 0 0; overflow: hidden;
+    min-height: 400px; display: flex; align-items: center;
+  }
+  .seeding .panel-bg { position: absolute; inset: 0; }
+  .seeding .panel-bg img { width: 100%; height: 100%; object-fit: cover; }
+  .seeding .panel-bg::after {
+    content: ""; position: absolute; inset: 0; background: rgba(0,0,0,0.6);
+  }
+  .seeding .panel-content {
+    position: relative; z-index: 2;
+    padding: 80px 48px; max-width: 800px; margin: 0 auto; text-align: center;
+  }
+  .seeding .eyebrow { display: block; margin-bottom: 20px; }
+  .seeding h2 {
+    font-family: var(--font-serif); font-weight: 400;
+    font-size: clamp(26px, 4vw, 46px); color: #fff;
+    margin: 0 0 20px; line-height: 1.15;
+  }
+
+  /* ---------- accountability ---------- */
+  .accountability { padding: 96px 0; }
+  .accountability-layout {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 64px;
+    max-width: 1200px; margin: 0 auto; padding: 0 24px; align-items: center;
+  }
+  .accountability-img {
+    border-radius: 20px; overflow: hidden; aspect-ratio: 4/5;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+  }
+  .accountability-img img { width: 100%; height: 100%; object-fit: cover; }
+  .accountability-text .eyebrow { display: block; margin-bottom: 16px; }
+  .accountability-text h2 {
+    font-family: var(--font-serif); font-weight: 400;
+    font-size: clamp(26px, 3.5vw, 42px); color: var(--gray-900);
+    margin: 0 0 16px; line-height: 1.2;
+  }
+  .accountability-text .rule-gold { margin-bottom: 24px; }
+  .accountability-text p { color: var(--gray-500); font-size: 16px; line-height: 1.8; margin: 0 0 20px; }
+  @media (max-width: 768px) { .accountability-layout { grid-template-columns: 1fr; } }
+
+  /* ---------- beta update / families ---------- */
+  .beta { padding: 96px 0; background: var(--warm-gray-50); }
+  .beta .head { text-align: center; margin-bottom: 20px; }
+  .beta .head h2 {
+    font-family: var(--font-serif); font-weight: 400;
+    font-size: clamp(26px, 4vw, 42px); color: var(--gray-900);
+    margin: 16px 0 12px;
+  }
+  .beta .head .rule-gold { margin: 0 auto 24px; }
+  .beta .head p {
+    color: var(--gray-500); font-size: 16px; line-height: 1.8;
+    max-width: 680px; margin: 0 auto 48px; text-wrap: pretty;
+  }
+  .family-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+    max-width: 1200px; margin: 0 auto; padding: 0 24px;
+  }
+  .family-card {
+    background: #fff; border-radius: 20px; overflow: hidden;
+    border: 1px solid var(--warm-gray-100);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .family-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+  .family-card .photo { aspect-ratio: 4/5; overflow: hidden; }
+  .family-card .photo img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 1.2s ease;
+  }
+  .family-card:hover .photo img { transform: scale(1.05); }
+  .family-card .body { padding: 20px; }
+  .family-card .body h3 {
+    font-family: var(--font-serif); font-size: 18px;
+    color: var(--gray-900); margin: 0 0 8px;
+  }
+  .family-card .body p { color: var(--gray-500); font-size: 14px; line-height: 1.7; margin: 0; }
+  @media (max-width: 768px) { .family-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 480px) { .family-grid { grid-template-columns: 1fr; max-width: 360px; } }
+
+  /* ---------- FAQ ---------- */
+  .faq { padding: 96px 0; }
+  .faq .head { text-align: center; margin-bottom: 48px; }
+  .faq .head h2 {
+    font-family: var(--font-serif); font-weight: 400;
+    font-size: clamp(26px, 3.5vw, 42px); color: var(--gray-900);
+    margin: 16px 0 0;
+  }
+  .faq-list { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+  .faq-item { border-bottom: 1px solid var(--warm-gray-100); }
+  .faq-item button {
+    width: 100%; display: flex; align-items: center; justify-content: space-between;
+    padding: 24px 0; text-align: left; background: none; border: 0;
+    cursor: pointer; font-family: var(--font-sans);
+    font-size: 17px; font-weight: 500; color: var(--gray-900);
+    transition: color 0.3s ease;
+  }
+  .faq-item button:hover { color: var(--accent-gold-dark); }
+  .faq-item button svg {
+    width: 20px; height: 20px; flex-shrink: 0; color: var(--gray-400);
+    transition: transform 0.3s ease;
+  }
+  .faq-item.open button svg { transform: rotate(180deg); }
+  .faq-item .answer {
+    max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease;
+  }
+  .faq-item.open .answer { max-height: 300px; padding-bottom: 24px; }
+  .faq-item .answer p { color: var(--gray-500); font-size: 15px; line-height: 1.8; margin: 0; }
+
+  /* ---------- footer ---------- */
+  footer {
+    background: var(--cinematic-dark); padding: 10px 0;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  footer .foot-inner {
+    max-width: 1400px; margin: 0 auto; padding: 0 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; flex-wrap: wrap;
+  }
+  footer .foot-left { display: flex; align-items: center; gap: 10px; }
+  footer .foot-left img { filter: brightness(0) invert(1); object-fit: contain; }
+  footer .foot-left span {
+    color: rgba(255,255,255,0.7); font-size: 11px; font-weight: 500;
+    letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  footer .foot-center { display: flex; align-items: center; gap: 16px; }
+  footer .foot-center a { color: rgba(255,255,255,0.6); font-size: 12px; transition: color .3s ease; }
+  footer .foot-center a:hover { color: var(--accent-gold); }
+  footer .foot-center .dot { color: rgba(255,255,255,0.15); font-size: 10px; }
+  footer .foot-right { display: flex; align-items: center; gap: 12px; }
+  footer .foot-right a { color: rgba(255,255,255,0.6); transition: color .3s ease; }
+  footer .foot-right a:hover { color: var(--accent-gold); }
+  footer .foot-right svg { width: 15px; height: 15px; display: block; }
+  footer .copy { color: rgba(255,255,255,0.5); font-size: 11px; margin: 0; }
+  @media (max-width: 640px) {
+    footer .foot-inner { justify-content: center; text-align: center; }
+    footer .foot-center { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== HEADER ========== -->
+<header id="siteHeader">
+  <div class="wrap">
+    <div class="bar">
+      <div class="header-left">
+        <a href="Project Aasare.html" class="brand">
+          <img src="images/logo.png" alt="New Mercy" width="36" height="36" style="object-fit:contain" />
+          <span class="name">New Mercy</span>
+        </a>
+        <nav class="main">
+          <a href="Project Aasare.html">Home</a>
+          <a href="#">About</a>
+          <a href="#">Ministries</a>
+          <a href="#">Community</a>
+          <a href="#">Contact</a>
+        </nav>
+      </div>
+      <div class="social">
+        <a href="https://www.instagram.com/newmercycc" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.64.07 4.85 0 3.2-.01 3.58-.07 4.85-.15 3.22-1.66 4.77-4.92 4.92-1.27.06-1.64.07-4.85.07-3.2 0-3.58-.01-4.85-.07-3.26-.15-4.77-1.7-4.92-4.92C2.17 15.6 2.16 15.2 2.16 12c0-3.2.01-3.58.07-4.85.15-3.23 1.66-4.77 4.92-4.92C8.42 2.21 8.8 2.2 12 2.2zM12 0C8.74 0 8.33.01 7.05.07 2.7.27.27 2.69.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.2 4.36 2.62 6.78 6.98 6.98 1.28.06 1.69.07 4.95.07s3.67-.01 4.95-.07c4.35-.2 6.78-2.62 6.98-6.98.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95C23.73 2.69 21.31.27 16.95.07 15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 12 18.16 6.16 6.16 0 0 0 12 5.84zm0 10.16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.41-11.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/channel/UCLNfTqcxgl2qpkiLy4r53rw/featured" target="_blank" rel="noopener" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3 3 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3 3 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5A3 3 0 0 0 23.5 17.8C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>
+        </a>
+        <button class="hamburger" onclick="document.querySelector('.mobile-menu').classList.add('open')" aria-label="Menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu">
+  <button class="close" onclick="document.querySelector('.mobile-menu').classList.remove('open')" aria-label="Close">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+  </button>
+  <nav>
+    <a href="Project Aasare.html">Home</a>
+    <a href="#">About</a>
+    <a href="#">Ministries</a>
+    <a href="#">Community</a>
+    <a href="#">Contact</a>
+  </nav>
+</div>
+
+<!-- ========== HERO ========== -->
+<section class="hero">
+  <div class="bg"><img src="images/the-goats/hero-goats.jpg" alt="Goat Sponsorship" /></div>
+  <div class="content">
+    <div class="wrap">
+      <span class="eyebrow" style="display:block;margin-bottom:20px">New Mercy Ministry</span>
+      <h1>Goat Sponsorship</h1>
+      <div class="rule-gold" style="width:48px;margin-bottom:16px"></div>
+      <p style="color:rgba(255,255,255,0.7);font-size:16px;max-width:400px">Partner with a family by sponsoring a pair of goats.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== INTRO / CTA ========== -->
+<section class="intro">
+  <div class="wrap reveal">
+    <span class="eyebrow dark">Sponsor a Family</span>
+    <h2>Sponsor a family for $470</h2>
+    <div class="rule-gold" style="margin:0 auto 28px"></div>
+    <p class="body-text">Partner with a family by sponsoring a pair of goats. Seeding appreciating assets for additional income streams. Sponsoring goats to impact a family&rsquo;s future and provide sustainable livelihood opportunities.</p>
+    <a href="https://pushpay.com/g/newmercy?fnd=Npu9Az80Qbiok-srysuR-g&fndv=Lock&lang=en&src=pcgl" target="_blank" rel="noopener" class="cta-btn">
+      Take Part <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </a>
+    <p class="memo">Please input &ldquo;Goats&rdquo; in memo line.</p>
+  </div>
+</section>
+
+<!-- ========== WHY GOATS PANEL ========== -->
+<div class="why-panel reveal">
+  <div class="panel-bg"><img src="images/the-goats/goat-detail-1.jpg" alt="" /></div>
+  <div class="panel-content">
+    <span class="eyebrow">Why Goats?</span>
+    <h2>Why goats?</h2>
+    <div class="rule-gold" style="width:48px"></div>
+    <p>Goats can help a family in many ways. They provide milk, which can be used for nourishment and used to mix in teas/chais, and can be used for butter, cheese, and supplementing everyday foods.</p>
+    <p>These dairy products can also be sold for additional income, providing a sustainable revenue stream. As many of these families have experience in farming, their knowledge in agriculture will also enable the goats to provide fertilizer and encourage better crop yields by helping to clear land.</p>
+    <blockquote>&ldquo;Partner with a family and make all the difference.&rdquo;</blockquote>
+  </div>
+</div>
+
+<!-- ========== WHY IMAGES ========== -->
+<div class="why-images">
+  <div class="img-card reveal"><img src="images/the-goats/goat-detail-1.jpg" alt="Goats" /></div>
+  <div class="img-card reveal"><img src="images/the-goats/goat-detail-2.jpg" alt="Goat farming" /></div>
+  <div class="img-card reveal"><img src="images/the-goats/goat-detail-3.jpg" alt="Sustainable farming" /></div>
+</div>
+
+<!-- ========== HOW THE PROGRAM WORKS ========== -->
+<section class="program">
+  <div class="program-layout">
+    <div class="program-img reveal"><img src="images/the-goats/program-how.jpg" alt="How the program works" /></div>
+    <div class="program-text">
+      <span class="eyebrow dark reveal">The Program</span>
+      <h2 class="reveal">How the program will work</h2>
+      <div class="rule-gold reveal"></div>
+      <p class="reveal">Our goal is to sponsor support for 50 families, where each family will be provided a pair of young adult goats. Providing vital benefits for the recipient family, the program will also facilitate in building community engagement through a model of seeding support forward to another family.</p>
+      <p class="reveal">When the goats of the primary recipient family produce offspring, they will gift the offspring to another family in the local village. With gestation being 6 months, the reach of 50 families will have expanded to 100 families in just a years time. By asking families to seed support forward, those participating in the program will be empowering other families as well.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SEEDING BANNER ========== -->
+<div class="seeding reveal">
+  <div class="panel-bg"><img src="images/the-goats/seeding-bg.jpg" alt="" /></div>
+  <div class="panel-content">
+    <span class="eyebrow">Our Vision</span>
+    <h2>Seeding families with appreciating income producing assets</h2>
+    <div class="rule-gold" style="width:48px;margin:0 auto"></div>
+  </div>
+</div>
+
+<!-- ========== ACCOUNTABILITY ========== -->
+<section class="accountability">
+  <div class="accountability-layout">
+    <div class="accountability-img reveal"><img src="images/the-goats/accountability-family.jpg" alt="Program accountability" /></div>
+    <div class="accountability-text">
+      <span class="eyebrow dark reveal">Transparency</span>
+      <h2 class="reveal">Program accountability</h2>
+      <div class="rule-gold reveal"></div>
+      <p class="reveal">Sponsors can expect updates from the program with pictures of the families, their goats and how they are doing. Local village leaders, many of them our own sponsored Beloved Women, will work with their local pastors and church networks to organize and administer the program to ensure transparency and accountability, as well as program feedback.</p>
+      <p class="reveal">They will coordinate the acquisition of the livestock, report on the family to Rise India, and ensure families send updates in a timely manner. A small portion of the program proceeds will go to the administration of these activities to ensure it is running smoothly.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== BETA UPDATE / FAMILIES ========== -->
+<section class="beta">
+  <div class="head reveal">
+    <span class="eyebrow dark">Progress</span>
+    <h2>Project update: beta test launch</h2>
+    <div class="rule-gold"></div>
+    <p>Since the 2025 team came back, New Mercy launched the program in a beta test to gather feedback on the goat sponsorship program. In the past 3 months, it has proven to be a great success, even leading to a 2nd generation of goats!</p>
+  </div>
+  <div class="family-grid">
+    <div class="family-card reveal">
+      <div class="photo"><img src="images/the-goats/lalitha.jpg" alt="Lalitha" /></div>
+      <div class="body"><h3>Lalitha</h3><p>Her goat gave birth to 2 babies, 1 male and 1 female on 5/13.</p></div>
+    </div>
+    <div class="family-card reveal">
+      <div class="photo"><img src="images/the-goats/sumaitra.jpg" alt="Sumaitra" /></div>
+      <div class="body"><h3>Sumaitra</h3><p>Her goat gave birth to one female on 5/12.</p></div>
+    </div>
+    <div class="family-card reveal">
+      <div class="photo"><img src="images/the-goats/kasturi.jpg" alt="Kasturi Gasti" /></div>
+      <div class="body"><h3>Kasturi Gasti</h3><p>We got her 2 goats as soon as she came home, her goat gave birth to 2 males.</p></div>
+    </div>
+    <div class="family-card reveal">
+      <div class="photo"><img src="images/the-goats/sumitra.jpg" alt="Sumitra" /></div>
+      <div class="body"><h3>Sumitra</h3><p>These are Sumitra&rsquo;s goats. One had a baby the same day, giving birth at the marketplace. Each goat has given birth to female kids.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FAQ ========== -->
+<section class="faq">
+  <div class="head reveal">
+    <span class="eyebrow dark">Questions</span>
+    <h2>Frequently Asked Questions</h2>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item reveal">
+      <button onclick="this.parentElement.classList.toggle('open')">
+        <span>How much does it cost to sponsor a pair of goats?</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="answer"><p>It will cost &#8377;20,000 (~$235) per goat, or $470 to sponsor 1 family with a pair.</p></div>
+    </div>
+    <div class="faq-item reveal">
+      <button onclick="this.parentElement.classList.toggle('open')">
+        <span>How will the goats be sourced?</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="answer"><p>Rise India will coordinate the procurement process of sourcing the goats.</p></div>
+    </div>
+    <div class="faq-item reveal">
+      <button onclick="this.parentElement.classList.toggle('open')">
+        <span>How are the families chosen to be eligible for sponsorship?</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="answer"><p>The administration and organization will be coordinated with Rise India, the local church and pastoral leadership to determine which families are most in need and are most viable for raising goats. Leaders will report on the families and goats to Rise India, and ensure families send pictures with updates.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+  <div class="foot-inner">
+    <div class="foot-left">
+      <img src="images/logo.png" alt="New Mercy" width="20" height="20" />
+      <span>New Mercy</span>
+    </div>
+    <div class="foot-center">
+      <a href="mailto:info@newmercy.church">info@newmercy.church</a>
+      <span class="dot">&bull;</span>
+      <p class="copy">&copy; <span id="yr"></span> New Mercy Community Church</p>
+    </div>
+    <div class="foot-right">
+      <a href="https://www.instagram.com/newmercycc" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.64.07 4.85 0 3.2-.01 3.58-.07 4.85-.15 3.22-1.66 4.77-4.92 4.92-1.27.06-1.64.07-4.85.07-3.2 0-3.58-.01-4.85-.07-3.26-.15-4.77-1.7-4.92-4.92C2.17 15.6 2.16 15.2 2.16 12c0-3.2.01-3.58.07-4.85.15-3.23 1.66-4.77 4.92-4.92C8.42 2.21 8.8 2.2 12 2.2zM12 0C8.74 0 8.33.01 7.05.07 2.7.27.27 2.69.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.2 4.36 2.62 6.78 6.98 6.98 1.28.06 1.69.07 4.95.07s3.67-.01 4.95-.07c4.35-.2 6.78-2.62 6.98-6.98.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95C23.73 2.69 21.31.27 16.95.07 15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 12 18.16 6.16 6.16 0 0 0 12 5.84zm0 10.16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.41-11.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg>
+      </a>
+      <a href="https://www.youtube.com/channel/UCLNfTqcxgl2qpkiLy4r53rw/featured" target="_blank" rel="noopener" aria-label="YouTube">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3 3 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3 3 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5A3 3 0 0 0 23.5 17.8C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // header scroll
+  const hdr = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    hdr.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+
+  // reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
