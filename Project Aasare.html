@@ -1,0 +1,697 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Project Aasare — New Mercy Community Church</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://use.typekit.net/nby5ubp.css" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Kannada:wght@900&display=swap" rel="stylesheet" />
+<style>
+  /* ---------- tokens ---------- */
+  :root {
+    --font-sans: "clother", ui-sans-serif, system-ui, sans-serif;
+    --font-serif: "new-spirit", Georgia, "Times New Roman", serif;
+
+    --cinematic-dark: oklch(0.13 0.005 260);
+    --warm-white: oklch(0.98 0.005 80);
+    --warm-gray-50: oklch(0.97 0.005 80);
+    --warm-gray-100: oklch(0.94 0.005 80);
+
+    --accent-gold: oklch(0.78 0.12 80);
+    --accent-gold-light: oklch(0.88 0.08 80);
+    --accent-gold-dark: oklch(0.65 0.14 80);
+
+    --gray-900: oklch(0.22 0.005 260);
+    --gray-500: oklch(0.55 0 0);
+    --gray-400: oklch(0.68 0 0);
+    --gray-950: oklch(0.17 0.005 260);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; overflow-x: hidden; }
+  body {
+    margin: 0;
+    font-family: var(--font-sans);
+    background: var(--warm-white);
+    color: var(--gray-900);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+  .wrap { max-width: 1400px; margin: 0 auto; padding: 0 24px; }
+  .eyebrow {
+    color: var(--accent-gold);
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.4em; text-transform: uppercase;
+  }
+  .eyebrow.dark { color: var(--accent-gold-dark); }
+  .rule-gold { width: 40px; height: 1px; background: color-mix(in oklch, var(--accent-gold) 50%, transparent); }
+
+  /* reveal */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  /* ---------- header ---------- */
+  header#siteHeader {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    transition: background .4s ease, backdrop-filter .4s ease;
+  }
+  header#siteHeader.scrolled {
+    background: color-mix(in oklch, var(--warm-white) 92%, transparent);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+  }
+  header#siteHeader .bar {
+    display: flex; align-items: center; justify-content: space-between; padding: 18px 0;
+  }
+  header#siteHeader .header-left { display: flex; align-items: center; gap: 40px; }
+  header#siteHeader .brand { display: flex; align-items: center; gap: 12px; }
+  header#siteHeader .brand img { filter: brightness(0) invert(1); transition: filter .4s ease; }
+  header#siteHeader.scrolled .brand img { filter: none; }
+  header#siteHeader .brand .name {
+    color: #fff; font-size: 13px; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase; transition: color .4s ease;
+  }
+  header#siteHeader.scrolled .brand .name { color: var(--gray-900); }
+  header#siteHeader nav.main { display: flex; align-items: center; gap: 28px; }
+  header#siteHeader nav.main a {
+    color: rgba(255,255,255,0.75); font-size: 13px; font-weight: 500; transition: color .4s ease;
+  }
+  header#siteHeader.scrolled nav.main a { color: color-mix(in oklch, var(--gray-900) 75%, transparent); }
+  header#siteHeader nav.main a:hover { color: var(--accent-gold-light); }
+  header#siteHeader.scrolled nav.main a:hover { color: var(--accent-gold-dark); }
+  header#siteHeader .social { display: flex; align-items: center; gap: 18px; }
+  header#siteHeader .social a { color: rgba(255,255,255,0.55); transition: color .4s ease; }
+  header#siteHeader.scrolled .social a { color: color-mix(in oklch, var(--gray-900) 60%, transparent); }
+  header#siteHeader .social a:hover { color: var(--accent-gold-light); }
+  header#siteHeader.scrolled .social a:hover { color: var(--accent-gold-dark); }
+  header#siteHeader .social svg { width: 18px; height: 18px; display: block; }
+  header#siteHeader .hamburger { display: none; background: none; border: 0; color: #fff; cursor: pointer; padding: 6px; }
+  header#siteHeader.scrolled .hamburger { color: var(--gray-900); }
+  @media (max-width: 1024px) {
+    header#siteHeader nav.main, header#siteHeader .social a { display: none; }
+    header#siteHeader .hamburger { display: inline-flex; }
+  }
+
+  .mobile-menu {
+    position: fixed; inset: 0; z-index: 60;
+    background: color-mix(in oklch, var(--cinematic-dark) 95%, transparent);
+    backdrop-filter: blur(16px);
+    display: none; align-items: center; justify-content: center; flex-direction: column;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu .close { position: absolute; top: 24px; right: 24px; background: none; border: 0; color: rgba(255,255,255,0.7); cursor: pointer; }
+  .mobile-menu nav { display: flex; flex-direction: column; gap: 24px; align-items: center; }
+  .mobile-menu a { color: rgba(255,255,255,0.8); font-size: 24px; font-weight: 300; }
+
+  /* ---------- hero ---------- */
+  .hero {
+    position: relative; width: 100%; height: 100vh; min-height: 620px;
+    overflow: hidden; display: flex; align-items: center; justify-content: center;
+    background: var(--warm-white);
+  }
+  .hero .bg {
+    position: absolute; inset: 0;
+  }
+  .hero .bg img {
+    width: 100%; height: 100%; object-fit: cover;
+  }
+  /* fade hero image to cream at bottom */
+  .hero .bg::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(to bottom, transparent 30%, var(--warm-white) 92%);
+  }
+  .hero .center-text {
+    position: relative; z-index: 2;
+    text-align: center; padding-top: 60px;
+  }
+  .hero .kannada {
+    font-family: "Noto Serif Kannada", serif;
+    font-weight: 900;
+    font-size: clamp(120px, 22vw, 380px);
+    line-height: 0.85;
+    color: var(--accent-gold);
+    text-shadow:
+      2px 2px 0 rgba(255,255,255,0.15),
+      -1px -1px 0 rgba(0,0,0,0.08),
+      4px 6px 12px rgba(0,0,0,0.3),
+      0 0 60px rgba(0,0,0,0.1);
+  }
+  .hero .project-name {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: clamp(44px, 7vw, 88px);
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin-top: -0.15em;
+    -webkit-text-stroke: 0.5px rgba(255,255,255,0.3);
+    text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+  }
+
+  /* ---------- our story panel ---------- */
+  .story-panel {
+    position: relative; margin: -8vh auto 0; max-width: 960px;
+    border-radius: 32px 32px 24px 24px;
+    overflow: hidden; z-index: 3;
+  }
+  .story-panel .panel-bg {
+    position: absolute; inset: 0;
+  }
+  .story-panel .panel-bg img {
+    width: 100%; height: 100%; object-fit: cover;
+  }
+  .story-panel .panel-bg::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.75) 100%);
+  }
+  .story-panel .panel-content {
+    position: relative; z-index: 2;
+    padding: 72px 48px 60px; text-align: center;
+  }
+  .story-panel .eyebrow { display: block; margin-bottom: 20px; }
+  .story-panel h2 {
+    font-family: var(--font-serif); font-weight: 400;
+    font-size: clamp(24px, 4vw, 42px);
+    color: #fff; margin: 0 0 24px; line-height: 1.2;
+  }
+  .story-panel .body-text {
+    color: rgba(255,255,255,0.7);
+    font-size: 16px; line-height: 1.8;
+    max-width: 860px; margin: 0 auto 40px;
+    text-wrap: pretty;
+  }
+  .story-panel .stats {
+    display: flex; justify-content: center; gap: 24px; flex-wrap: wrap;
+  }
+  .story-panel .stat-box {
+    background: rgba(255,255,255,0.04);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 16px; padding: 28px 40px; text-align: center;
+    min-width: 180px;
+  }
+  .story-panel .stat-num {
+    font-family: var(--font-serif);
+    font-size: clamp(36px, 5vw, 52px);
+    color: #fff; line-height: 1;
+  }
+  .story-panel .stat-label {
+    color: rgba(255,255,255,0.4);
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    margin-top: 8px;
+  }
+  @media (max-width: 640px) {
+    .story-panel .panel-content { padding: 48px 24px 40px; }
+    .story-panel .stats { flex-direction: column; align-items: center; }
+  }
+
+  /* ---------- choose cards ---------- */
+  .choose-section { padding: 80px 0; }
+  .choose-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+    max-width: 1200px; margin: 0 auto; padding: 0 24px;
+  }
+  .choose-card {
+    position: relative; border-radius: 20px; overflow: hidden;
+    min-height: 480px; cursor: pointer; isolation: isolate;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+  .choose-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+  .choose-card .img {
+    position: absolute; inset: 0; z-index: -2;
+    transition: transform 1.2s ease;
+  }
+  .choose-card:hover .img { transform: scale(1.05); }
+  .choose-card .img img { width: 100%; height: 100%; object-fit: cover; }
+  .choose-card::after {
+    content: ""; position: absolute; inset: 0; z-index: -1;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 60%, transparent 100%);
+  }
+  .choose-card .inner {
+    position: relative; z-index: 1;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 40px; height: 100%;
+  }
+  .choose-card .eyebrow { color: var(--accent-gold); margin-bottom: 12px; }
+  .choose-card h3 {
+    font-family: var(--font-serif); font-weight: 400;
+    font-size: clamp(26px, 3vw, 38px);
+    color: #fff; margin: 0 0 12px;
+  }
+  .choose-card .desc {
+    color: rgba(255,255,255,0.6); font-size: 14px; line-height: 1.7;
+    margin: 0 0 24px; max-width: 380px;
+  }
+  .choose-card .actions { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+  .choose-card .cta-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--accent-gold); color: var(--gray-950);
+    padding: 12px 28px; border-radius: 100px;
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    transition: background 0.3s ease;
+    text-decoration: none;
+  }
+  .choose-card .cta-btn:hover { background: var(--accent-gold-light); }
+  .choose-card .cta-btn svg { width: 14px; height: 14px; transition: transform 0.3s ease; }
+  .choose-card:hover .cta-btn svg { transform: translateX(3px); }
+  .choose-card .learn {
+    color: rgba(255,255,255,0.5); font-size: 12px; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    text-decoration: underline; text-underline-offset: 4px;
+    transition: color 0.3s ease;
+  }
+  .choose-card .learn:hover { color: var(--accent-gold); }
+  @media (max-width: 768px) {
+    .choose-grid { grid-template-columns: 1fr; }
+    .choose-card { min-height: 400px; }
+  }
+
+  /* ---------- donation progress ---------- */
+  .donations { padding: 96px 0; background: var(--warm-gray-50); }
+  .donations .head { text-align: center; margin-bottom: 56px; }
+  .donations .head h2 {
+    font-family: var(--font-serif); font-weight: 400;
+    font-size: clamp(26px, 4vw, 42px);
+    color: var(--gray-900); margin: 16px 0 0;
+  }
+  .donations .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+  .don-card {
+    background: #fff; border-radius: 20px; padding: 32px;
+    border: 1px solid var(--warm-gray-100);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .don-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+  .don-card h3 {
+    font-family: var(--font-serif); font-size: 20px;
+    color: var(--gray-900); margin: 0 0 4px;
+  }
+  .don-card .raised { color: var(--gray-400); font-size: 12px; letter-spacing: 0.02em; margin: 0 0 20px; }
+  .don-card .bar-bg {
+    height: 10px; border-radius: 10px; background: var(--warm-gray-100); overflow: hidden; margin-bottom: 8px;
+  }
+  .don-card .bar-fill {
+    height: 100%; border-radius: 10px;
+    background: linear-gradient(90deg, oklch(0.75 0.12 85), oklch(0.80 0.15 75));
+    transition: width 1.4s cubic-bezier(.2,.8,.2,1);
+    width: 0;
+  }
+  .don-card .pct {
+    text-align: right; font-size: 13px; color: var(--gray-400); margin: 0 0 28px;
+  }
+  .don-card .pct b { color: var(--accent-gold-dark); font-size: 14px; }
+  .don-card .donate-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--accent-gold); color: var(--gray-950);
+    padding: 10px 24px; border-radius: 100px;
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    text-decoration: none; transition: background 0.3s ease;
+  }
+  .don-card .donate-btn:hover { background: var(--accent-gold-light); }
+  .don-card .donate-btn svg { width: 14px; height: 14px; }
+  @media (max-width: 768px) {
+    .donations .grid { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- our calling panel ---------- */
+  .calling-panel {
+    position: relative; max-width: 1200px; margin: 0 auto;
+    border-radius: 32px; overflow: hidden;
+  }
+  .calling-panel .panel-bg {
+    position: absolute; inset: 0;
+  }
+  .calling-panel .panel-bg img { width: 100%; height: 100%; object-fit: cover; }
+  .calling-panel .panel-bg::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.75) 100%);
+  }
+  .calling-section { padding: 80px 24px; }
+  .calling-panel .panel-content {
+    position: relative; z-index: 2;
+    padding: 80px 48px; text-align: center;
+    max-width: 760px; margin: 0 auto;
+  }
+  .calling-panel .eyebrow { display: block; margin-bottom: 20px; }
+  .calling-panel h2 {
+    font-family: var(--font-serif); font-weight: 400;
+    font-size: clamp(26px, 4vw, 42px);
+    color: #fff; margin: 0 0 32px; line-height: 1.2;
+  }
+  .calling-panel p {
+    color: rgba(255,255,255,0.6); font-size: 16px; line-height: 1.8; margin: 0 0 20px;
+  }
+  .calling-panel .quote {
+    margin: 40px 0; padding: 0;
+  }
+  .calling-panel .quote .rule-gold { margin: 0 auto 28px; }
+  .calling-panel blockquote {
+    font-family: var(--font-serif);
+    font-size: clamp(22px, 3vw, 34px);
+    color: #fff; font-style: italic;
+    line-height: 1.3; margin: 0;
+  }
+  .calling-panel .quote .rule-gold:last-child { margin: 28px auto 0; }
+  @media (max-width: 640px) {
+    .calling-panel .panel-content { padding: 48px 24px; }
+  }
+
+  /* ---------- abode gallery ---------- */
+  .abode { padding: 96px 0; }
+  .abode-layout {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+    max-width: 1200px; margin: 0 auto; padding: 0 24px;
+    align-items: center;
+  }
+  .abode-text .eyebrow { display: block; margin-bottom: 16px; }
+  .abode-text h2 {
+    font-family: var(--font-serif); font-weight: 400;
+    font-size: clamp(28px, 4vw, 42px);
+    color: var(--gray-900); margin: 0 0 16px;
+  }
+  .abode-text .rule-gold { margin-bottom: 20px; }
+  .abode-text p {
+    color: var(--gray-500); font-size: 16px; line-height: 1.8; margin: 0;
+  }
+  .abode-collage {
+    position: relative; min-height: 480px;
+  }
+  .abode-collage .photo {
+    position: absolute; border-radius: 12px; overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    transition: transform 0.6s ease;
+  }
+  .abode-collage .photo:hover { transform: scale(1.03); }
+  .abode-collage .photo img { width: 100%; height: 100%; object-fit: cover; }
+  .abode-collage .photo-1 { top: 0; left: 0; width: 55%; height: 60%; z-index: 2; }
+  .abode-collage .photo-2 { top: 5%; right: 0; width: 48%; height: 50%; z-index: 1; }
+  .abode-collage .photo-3 { bottom: 0; left: 10%; width: 65%; height: 45%; z-index: 3; }
+  @media (max-width: 768px) {
+    .abode-layout { grid-template-columns: 1fr; }
+    .abode-collage { min-height: 360px; }
+  }
+
+  /* ---------- footer ---------- */
+  footer {
+    background: var(--cinematic-dark); padding: 48px 0; text-align: center;
+  }
+  footer h3 {
+    color: #fff; font-size: 12px; font-weight: 600;
+    letter-spacing: 0.25em; text-transform: uppercase; margin: 0 0 12px;
+  }
+  footer .email {
+    color: rgba(255,255,255,0.4); font-size: 14px;
+    transition: color .3s ease;
+  }
+  footer .email:hover { color: var(--accent-gold); }
+  footer .social-row { display: flex; justify-content: center; gap: 16px; margin-top: 16px; }
+  footer .social-row a { color: rgba(255,255,255,0.4); transition: color .3s ease; }
+  footer .social-row a:hover { color: var(--accent-gold); }
+  footer .foot-rule {
+    width: 48px; height: 1px; background: rgba(255,255,255,0.1);
+    margin: 24px auto;
+  }
+  footer .copy { color: rgba(255,255,255,0.2); font-size: 13px; margin: 0; }
+</style>
+</head>
+<body>
+
+<!-- ========== HEADER ========== -->
+<header id="siteHeader">
+  <div class="wrap">
+    <div class="bar">
+      <div class="header-left">
+        <a href="Project Aasare.html" class="brand">
+          <img src="images/logo.png" alt="New Mercy" width="36" height="36" style="object-fit:contain" />
+          <span class="name">New Mercy</span>
+        </a>
+        <nav class="main">
+          <a href="Project Aasare.html">Home</a>
+          <a href="#">About</a>
+          <a href="#">Ministries</a>
+          <a href="#">Community</a>
+          <a href="#">Contact</a>
+        </nav>
+      </div>
+      <div class="social">
+        <a href="https://www.instagram.com/newmercycc" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.64.07 4.85 0 3.2-.01 3.58-.07 4.85-.15 3.22-1.66 4.77-4.92 4.92-1.27.06-1.64.07-4.85.07-3.2 0-3.58-.01-4.85-.07-3.26-.15-4.77-1.7-4.92-4.92C2.17 15.6 2.16 15.2 2.16 12c0-3.2.01-3.58.07-4.85.15-3.23 1.66-4.77 4.92-4.92C8.42 2.21 8.8 2.2 12 2.2zM12 0C8.74 0 8.33.01 7.05.07 2.7.27.27 2.69.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.2 4.36 2.62 6.78 6.98 6.98 1.28.06 1.69.07 4.95.07s3.67-.01 4.95-.07c4.35-.2 6.78-2.62 6.98-6.98.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95C23.73 2.69 21.31.27 16.95.07 15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 12 18.16 6.16 6.16 0 0 0 12 5.84zm0 10.16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.41-11.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/channel/UCLNfTqcxgl2qpkiLy4r53rw/featured" target="_blank" rel="noopener" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3 3 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3 3 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5A3 3 0 0 0 23.5 17.8C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>
+        </a>
+        <button class="hamburger" onclick="document.querySelector('.mobile-menu').classList.add('open')" aria-label="Menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu">
+  <button class="close" onclick="document.querySelector('.mobile-menu').classList.remove('open')" aria-label="Close">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+  </button>
+  <nav>
+    <a href="Project Aasare.html" onclick="document.querySelector('.mobile-menu').classList.remove('open')">Home</a>
+    <a href="#" onclick="document.querySelector('.mobile-menu').classList.remove('open')">About</a>
+    <a href="#" onclick="document.querySelector('.mobile-menu').classList.remove('open')">Ministries</a>
+    <a href="#" onclick="document.querySelector('.mobile-menu').classList.remove('open')">Community</a>
+    <a href="#" onclick="document.querySelector('.mobile-menu').classList.remove('open')">Contact</a>
+  </nav>
+</div>
+
+<!-- ========== HERO ========== -->
+<section class="hero">
+  <div class="bg">
+    <img src="images/hero.jpg" alt="Project Aasare — community in India" />
+  </div>
+  <div class="center-text">
+    <div class="kannada">ಆಸರೆ</div>
+    <div class="project-name">Project Aasare</div>
+  </div>
+</section>
+
+<!-- ========== OUR STORY PANEL ========== -->
+<div class="story-panel reveal">
+  <div class="panel-bg">
+    <img src="images/hero.jpg" alt="" />
+  </div>
+  <div class="panel-content">
+    <span class="eyebrow">Our Story</span>
+    <h2>Sustainable Support That Restores Faith &amp; Hope</h2>
+    <p class="body-text">
+      Project Aasare (ಆಸರೆ) takes its name from the word 'Aasare,' meaning support, refuge, or reliance. Rooted in this spirit, this project exists to walk alongside communities in India with long-term care, offering not just temporary help but sustainable support that restores faith and hope. Empowering local individuals to build stability for themselves. Through initiatives like sponsoring goats and other livelihood-focused efforts, Project Aasare seeks to empower local individuals to build stability for themselves while reflecting God's heart for generosity and faithfulness.
+    </p>
+    <div class="stats">
+      <div class="stat-box">
+        <div class="stat-num" data-count="2012">0</div>
+        <div class="stat-label">Serving Since</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num" data-count="80000" data-suffix="+">0</div>
+        <div class="stat-label">Lives to Reach</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== CHOOSE: BEHOLDING BELOVED / GOAT SPONSORSHIP ========== -->
+<section class="choose-section">
+  <div class="choose-grid">
+    <div class="choose-card" onclick="window.open('https://pushpay.com/g/newmercy?fnd=Npu9Az80Qbiok-srysuR-g&fndv=Lock&lang=en&src=pcgl','_blank')">
+      <div class="img"><img src="images/beholding-beloved.jpg" alt="Beholding Beloved" /></div>
+      <div class="inner">
+        <span class="eyebrow">Ministry</span>
+        <h3>Beholding Beloved</h3>
+        <p class="desc">A journey of love &amp; faith. New Mercy's vision for the 80,000 Devadasi women in Karnataka. Partner with us as we seek to help fund some of their most pressing needs.</p>
+        <div class="actions">
+          <a href="https://pushpay.com/g/newmercy?fnd=Npu9Az80Qbiok-srysuR-g&fndv=Lock&lang=en&src=pcgl" target="_blank" rel="noopener" class="cta-btn" onclick="event.stopPropagation()">
+            Support <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+          <a href="Beholding Beloved.html" class="learn" onclick="event.stopPropagation()">Learn more</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="choose-card" onclick="window.open('https://pushpay.com/g/newmercy?fnd=Npu9Az80Qbiok-srysuR-g&fndv=Lock&lang=en&src=pcgl','_blank')">
+      <div class="img"><img src="images/goat-sponsorship.jpg" alt="Goat Sponsorship" /></div>
+      <div class="inner">
+        <span class="eyebrow">Livelihood</span>
+        <h3>Goat Sponsorship</h3>
+        <p class="desc">Seeding appreciating assets for additional income streams. Sponsoring goats to impact a family's future and provide sustainable livelihood opportunities.</p>
+        <div class="actions">
+          <a href="https://pushpay.com/g/newmercy?fnd=Npu9Az80Qbiok-srysuR-g&fndv=Lock&lang=en&src=pcgl" target="_blank" rel="noopener" class="cta-btn" onclick="event.stopPropagation()">
+            Sponsor a Goat <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+          <a href="the-goats" class="learn" onclick="event.stopPropagation()">Learn more</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== DONATION PROGRESS ========== -->
+<section class="donations">
+  <div class="head reveal">
+    <span class="eyebrow dark">Make an Impact</span>
+    <h2>Help Us Reach Our Goals</h2>
+  </div>
+  <div class="grid">
+    <div class="don-card reveal" data-pct="75">
+      <h3>Goat Sponsorship Fund</h3>
+      <p class="raised">$18,750 of $25,000 raised</p>
+      <div class="bar-bg"><div class="bar-fill"></div></div>
+      <p class="pct"><b>75%</b> funded</p>
+      <a href="https://pushpay.com/g/newmercy" target="_blank" rel="noopener" class="donate-btn">
+        Donate Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <div class="don-card reveal" data-pct="70">
+      <h3>Abode of Peace Construction</h3>
+      <p class="raised">$42,000 of $60,000 raised</p>
+      <div class="bar-bg"><div class="bar-fill"></div></div>
+      <p class="pct"><b>70%</b> funded</p>
+      <a href="https://pushpay.com/g/newmercy" target="_blank" rel="noopener" class="donate-btn">
+        Donate Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <div class="don-card reveal" data-pct="57">
+      <h3>Beloved Conference 2025</h3>
+      <p class="raised">$8,500 of $15,000 raised</p>
+      <div class="bar-bg"><div class="bar-fill"></div></div>
+      <p class="pct"><b>57%</b> funded</p>
+      <a href="https://pushpay.com/g/newmercy" target="_blank" rel="noopener" class="donate-btn">
+        Donate Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== OUR CALLING (VISION) ========== -->
+<section class="calling-section">
+  <div class="calling-panel reveal">
+    <div class="panel-bg">
+      <img src="images/abode-2.jpg" alt="Our Calling" />
+    </div>
+    <div class="panel-content">
+      <span class="eyebrow">Our Calling</span>
+      <h2>Our Vision for India: Reaching the Beloved</h2>
+
+      <p>Since 2012, our church has been faithfully serving in Karnataka, India, with a deep calling to bring the hope of Jesus to the Devadasi women &mdash; precious daughters of God who have often been forgotten by the world.</p>
+      <p>What began as a small outreach has grown into a passionate ministry grounded in love, dignity, and the transforming power of the gospel.</p>
+
+      <div class="quote">
+        <div class="rule-gold" style="width:48px;margin:0 auto 28px"></div>
+        <blockquote>&ldquo;These women are not invisible. They are Beloved.&rdquo;</blockquote>
+        <div class="rule-gold" style="width:48px;margin:28px auto 0"></div>
+      </div>
+
+      <p>Each year, we host the Beloved Conference, a sacred gathering where Devadasi women are reminded of who they truly are &mdash; not defined by their past, but cherished and called by God.</p>
+      <p>We believe that every woman matters to Jesus, and we carry a bold vision: to reach all 80,000 Devadasi women in Karnataka with the good news of His love.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== ABODE OF PEACE ========== -->
+<section class="abode">
+  <div class="abode-layout">
+    <div class="abode-text reveal">
+      <span class="eyebrow dark">On the Ground</span>
+      <h2>Abode of Peace</h2>
+      <div class="rule-gold"></div>
+      <p>New Mercy has partnered in funding projects at Abode of Peace School. In 2025, the outreach team visited to see the impact of the 3rd floor construction and spend time with the children on site.</p>
+    </div>
+    <div class="abode-collage reveal">
+      <div class="photo photo-1"><img src="images/abode-2.jpg" alt="Children at Abode of Peace" /></div>
+      <div class="photo photo-2"><img src="images/abode-3.jpg" alt="Abode of Peace construction" /></div>
+      <div class="photo photo-3"><img src="images/abode-4.jpg" alt="Team at Abode of Peace" /></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+  <div class="wrap">
+    <img src="images/logo.png" alt="New Mercy" style="width:40px;height:40px;margin:0 auto 16px;display:block;filter:brightness(0) invert(1);object-fit:contain" />
+    <h3>New Mercy Community Church</h3>
+    <a class="email" href="mailto:info@newmercy.church">info@newmercy.church</a>
+    <div class="social-row">
+      <a href="https://www.instagram.com/newmercycc" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.64.07 4.85 0 3.2-.01 3.58-.07 4.85-.15 3.22-1.66 4.77-4.92 4.92-1.27.06-1.64.07-4.85.07-3.2 0-3.58-.01-4.85-.07-3.26-.15-4.77-1.7-4.92-4.92C2.17 15.6 2.16 15.2 2.16 12c0-3.2.01-3.58.07-4.85.15-3.23 1.66-4.77 4.92-4.92C8.42 2.21 8.8 2.2 12 2.2zM12 0C8.74 0 8.33.01 7.05.07 2.7.27.27 2.69.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.2 4.36 2.62 6.78 6.98 6.98 1.28.06 1.69.07 4.95.07s3.67-.01 4.95-.07c4.35-.2 6.78-2.62 6.98-6.98.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95C23.73 2.69 21.31.27 16.95.07 15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 12 18.16 6.16 6.16 0 0 0 12 5.84zm0 10.16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.41-11.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg>
+      </a>
+      <a href="https://www.youtube.com/channel/UCLNfTqcxgl2qpkiLy4r53rw/featured" target="_blank" rel="noopener" aria-label="YouTube">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3 3 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3 3 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5A3 3 0 0 0 23.5 17.8C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>
+      </a>
+    </div>
+    <div class="foot-rule"></div>
+    <p class="copy">&copy; <span id="yr"></span> New Mercy Community Church. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  // year
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // header scroll
+  const hdr = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    hdr.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+
+  // reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // count-up animation
+  function countUp(el, end, suffix) {
+    const dur = 2500;
+    const start = performance.now();
+    function tick(now) {
+      const p = Math.min((now - start) / dur, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(eased * end).toLocaleString() + (suffix || '');
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  const statIo = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const end = parseInt(e.target.dataset.count);
+        const suffix = e.target.dataset.suffix || '';
+        countUp(e.target, end, suffix);
+        statIo.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('.stat-num[data-count]').forEach(el => statIo.observe(el));
+
+  // donation progress bars
+  const barIo = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const pct = e.target.dataset.pct;
+        const fill = e.target.querySelector('.bar-fill');
+        if (fill) requestAnimationFrame(() => { fill.style.width = pct + '%'; });
+        barIo.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.25 });
+  document.querySelectorAll('.don-card[data-pct]').forEach(el => barIo.observe(el));
+</script>
+
+</body>
+</html>
