@@ -991,6 +991,24 @@
   .reveal.right { transform: translateX(48px); }
   .reveal.right.in { transform: none; }
 
+  /* ---------- mobile fixes ---------- */
+  @media (max-width: 640px) {
+    .bb-hero { min-height: 420px; }
+    .bb-hero .content .wrap { padding-bottom: 56px; }
+    .bb-hero h1 { font-size: 36px; }
+    .bb-profiles .carousel { height: 380px; }
+    .bb-profiles .carousel .slide { top: 10px; }
+    .bb-history-top { padding: 100px 0 40px; }
+    .bb-history-bottom { padding: 32px 0 60px; }
+    .bb-success { padding: 40px 0 60px; }
+    .bb-success .stage { min-height: auto; }
+  }
+  @media (max-width: 480px) {
+    .bb-hero h1 { font-size: 28px; }
+    .bb-profiles .carousel { height: 340px; }
+    .bb-profiles .head h2 { font-size: 26px; }
+  }
+
   /* back-home link on hero */
   .bb-hero .back {
     position: absolute; top: 96px; left: 24px;

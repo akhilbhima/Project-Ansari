@@ -113,9 +113,10 @@
 
   /* ---------- hero ---------- */
   .hero {
-    position: relative; width: 100%; height: 60vh; min-height: 380px;
+    position: relative; width: 100%; height: 60vh; min-height: 320px;
     overflow: hidden; display: flex; align-items: center; justify-content: center;
     background: var(--warm-white);
+    padding: 60px 16px 0;
   }
   .hero .bg {
     display: none;
@@ -261,7 +262,13 @@
   .choose-card .learn:hover { color: var(--accent-gold); }
   @media (max-width: 768px) {
     .choose-grid { grid-template-columns: 1fr; }
-    .choose-card { min-height: 400px; }
+    .choose-card { min-height: 360px; }
+    .choose-section { padding: 48px 0; }
+  }
+  @media (max-width: 480px) {
+    .choose-card { min-height: 300px; }
+    .choose-card .inner { padding: 24px; }
+    .choose-card h3 { font-size: 24px; }
   }
 
   /* ---------- donation progress ---------- */
@@ -308,7 +315,8 @@
   .don-card .donate-btn:hover { background: var(--accent-gold-light); }
   .don-card .donate-btn svg { width: 14px; height: 14px; }
   @media (max-width: 768px) {
-    .donations .grid { grid-template-columns: 1fr; }
+    .donations .grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+    .donations { padding: 64px 0; }
   }
 
   /* ---------- our calling panel ---------- */
@@ -351,7 +359,8 @@
   }
   .calling-panel .quote .rule-gold:last-child { margin: 28px auto 0; }
   @media (max-width: 640px) {
-    .calling-panel .panel-content { padding: 48px 24px; }
+    .calling-panel .panel-content { padding: 40px 20px; }
+    .calling-section { padding: 48px 16px; }
   }
 
   /* ---------- abode gallery ---------- */
@@ -389,8 +398,17 @@
   .abode-collage .photo-2 { top: 5%; right: 0; width: 48%; height: 48%; z-index: 1; }
   .abode-collage .photo-3 { bottom: 0; left: 10%; width: 65%; height: 44%; z-index: 3; }
   @media (max-width: 768px) {
-    .abode-layout { grid-template-columns: 1fr; }
-    .abode-collage { min-height: 360px; }
+    .abode-layout { grid-template-columns: 1fr; gap: 32px; }
+    .abode-text { text-align: center; }
+    .abode-text .rule-gold { margin: 0 auto 20px; }
+    .abode-collage { min-height: 300px; }
+    .abode-collage .photo-1 { width: 48%; height: 55%; }
+    .abode-collage .photo-2 { width: 44%; height: 45%; }
+    .abode-collage .photo-3 { width: 58%; height: 42%; }
+    .abode { padding: 64px 0; }
+  }
+  @media (max-width: 480px) {
+    .abode-collage { min-height: 260px; }
   }
 
   /* ---------- footer ---------- */
