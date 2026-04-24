@@ -35,6 +35,7 @@ export default function Home() {
           description="Seeding appreciating assets for additional income streams. Sponsoring goats to impact a family's future and provide sustainable livelihood opportunities."
           ctaText="Sponsor a Goat"
           ctaLink="https://pushpay.com/g/newmercy"
+          learnMoreLink="/the-goats"
           reversed
           variant="light"
         />
