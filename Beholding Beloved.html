@@ -251,18 +251,19 @@
 
   .bb-history .closer-cards {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr 1.6fr 1fr;
+    grid-template-rows: auto auto;
     gap: 20px;
     margin: 60px auto 0;
-    max-width: 1100px;
+    max-width: 1300px;
+    align-items: end;
   }
   .bb-history .closer-cards figure {
     margin: 0;
-    aspect-ratio: 3/4;
-    border-radius: 8px;
+    border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 24px 50px -20px rgba(0,0,0,0.6);
-    background: #111;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    background: var(--warm-gray-100);
   }
   .bb-history .closer-cards figure img {
     width: 100%; height: 100%;
@@ -270,9 +271,28 @@
     transition: transform 1.2s ease;
   }
   .bb-history .closer-cards figure:hover img { transform: scale(1.05); }
+  /* left tall portrait */
+  .bb-history .closer-cards figure:nth-child(1) {
+    grid-column: 1; grid-row: 1 / 3;
+    aspect-ratio: 3/4;
+  }
+  /* center wide landscape */
+  .bb-history .closer-cards figure:nth-child(2) {
+    grid-column: 2; grid-row: 2;
+    aspect-ratio: 16/10;
+  }
+  /* right tall portrait */
+  .bb-history .closer-cards figure:nth-child(3) {
+    grid-column: 3; grid-row: 1 / 3;
+    aspect-ratio: 3/4;
+  }
   @media (max-width: 720px) {
-    .bb-history .closer-cards { grid-template-columns: 1fr; gap: 16px; max-width: 420px; }
-    .bb-history .closer-cards figure { aspect-ratio: 4/3; }
+    .bb-history .closer-cards { grid-template-columns: 1fr; max-width: 420px; }
+    .bb-history .closer-cards figure:nth-child(1),
+    .bb-history .closer-cards figure:nth-child(2),
+    .bb-history .closer-cards figure:nth-child(3) {
+      grid-column: 1; grid-row: auto; aspect-ratio: 4/3;
+    }
   }
 
   /* wide banner + story split (matches original layout) */
@@ -933,27 +953,35 @@
 
   /* ---------- footer ---------- */
   footer {
-    background: var(--cinematic-dark);
-    padding: 80px 0 64px;
-    text-align: center;
-    color: rgba(255,255,255,0.4);
+    background: var(--cinematic-dark); padding: 10px 0;
+    border-top: 1px solid rgba(255,255,255,0.06);
   }
-  footer h3 {
-    color: #fff;
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    margin: 0 0 22px;
+  footer .foot-inner {
+    max-width: 1400px; margin: 0 auto; padding: 0 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; flex-wrap: wrap;
   }
-  footer .email { color: rgba(255,255,255,0.4); transition: color .25s ease; }
-  footer .email:hover { color: var(--accent-gold); }
-  footer .social-row {
-    display: flex; justify-content: center; gap: 22px;
-    margin-top: 28px;
+  footer .foot-left { display: flex; align-items: center; gap: 10px; }
+  footer .foot-left img { filter: brightness(0) invert(1); object-fit: contain; }
+  footer .foot-left span {
+    color: rgba(255,255,255,0.7); font-size: 11px; font-weight: 500;
+    letter-spacing: 0.12em; text-transform: uppercase;
   }
-  footer .foot-rule { width: 64px; height: 1px; background: rgba(255,255,255,0.1); margin: 40px auto; }
-  footer .copy { color: rgba(255,255,255,0.2); font-size: 14px; }
+  footer .foot-center { display: flex; align-items: center; gap: 16px; }
+  footer .foot-center a {
+    color: rgba(255,255,255,0.6); font-size: 12px; transition: color .3s ease;
+  }
+  footer .foot-center a:hover { color: var(--accent-gold); }
+  footer .foot-center .dot { color: rgba(255,255,255,0.15); font-size: 10px; }
+  footer .foot-right { display: flex; align-items: center; gap: 12px; }
+  footer .foot-right a { color: rgba(255,255,255,0.6); transition: color .3s ease; }
+  footer .foot-right a:hover { color: var(--accent-gold); }
+  footer .foot-right svg { width: 15px; height: 15px; display: block; }
+  footer .copy { color: rgba(255,255,255,0.5); font-size: 11px; margin: 0; }
+  @media (max-width: 640px) {
+    footer .foot-inner { justify-content: center; text-align: center; }
+    footer .foot-center { display: none; }
+  }
 
   /* ---------- reveal ---------- */
   .reveal { opacity: 0; transform: translateY(32px); transition: opacity .9s ease, transform .9s ease; }
@@ -1111,9 +1139,9 @@
       <h3>Each woman matters. Each story matters.</h3>
       <p>And our mission is to ensure that every single one hears: You are seen. You are loved. You are God&rsquo;s Beloved.</p>
       <div class="closer-cards">
-        <figure><img src="images/beholding-beloved/worship-wide.jpg" alt="Women worshipping with raised hands" /></figure>
-        <figure><img src="images/beholding-beloved/team-group.jpg" alt="New Mercy mission team" /></figure>
         <figure><img src="images/beholding-beloved/congregation.jpg" alt="Beloved Conference congregation in prayer" /></figure>
+        <figure><img src="images/beholding-beloved/team-group.jpg" alt="New Mercy mission team" /></figure>
+        <figure><img src="images/beholding-beloved/worship-wide.jpg" alt="Women worshipping with raised hands" /></figure>
       </div>
     </div>
   </div>
@@ -1149,20 +1177,24 @@
 
 <!-- ========== FOOTER ========== -->
 <footer>
-  <div class="wrap">
-    <img src="images/logo.png" alt="New Mercy" style="width:48px;height:48px;margin:0 auto 24px;display:block;filter:brightness(0) invert(1);object-fit:contain" />
-    <h3>New Mercy Community Church</h3>
-    <a class="email" href="mailto:info@newmercy.church">info@newmercy.church</a>
-    <div class="social-row">
-      <a href="#" aria-label="Instagram" style="color: rgba(255,255,255,0.4)">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.64.07 4.85 0 3.2-.01 3.58-.07 4.85-.15 3.22-1.66 4.77-4.92 4.92-1.27.06-1.64.07-4.85.07-3.2 0-3.58-.01-4.85-.07-3.26-.15-4.77-1.7-4.92-4.92C2.17 15.6 2.16 15.2 2.16 12c0-3.2.01-3.58.07-4.85.15-3.23 1.66-4.77 4.92-4.92C8.42 2.21 8.8 2.2 12 2.2zM12 0C8.74 0 8.33.01 7.05.07 2.7.27.27 2.69.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.2 4.36 2.62 6.78 6.98 6.98 1.28.06 1.69.07 4.95.07s3.67-.01 4.95-.07c4.35-.2 6.78-2.62 6.98-6.98.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95C23.73 2.69 21.31.27 16.95.07 15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 12 18.16 6.16 6.16 0 0 0 12 5.84zm0 10.16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.41-11.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg>
+  <div class="foot-inner">
+    <div class="foot-left">
+      <img src="images/logo.png" alt="New Mercy" width="20" height="20" />
+      <span>New Mercy</span>
+    </div>
+    <div class="foot-center">
+      <a href="mailto:info@newmercy.church">info@newmercy.church</a>
+      <span class="dot">&bull;</span>
+      <p class="copy">&copy; <span id="yr"></span> New Mercy Community Church</p>
+    </div>
+    <div class="foot-right">
+      <a href="https://www.instagram.com/newmercycc" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.64.07 4.85 0 3.2-.01 3.58-.07 4.85-.15 3.22-1.66 4.77-4.92 4.92-1.27.06-1.64.07-4.85.07-3.2 0-3.58-.01-4.85-.07-3.26-.15-4.77-1.7-4.92-4.92C2.17 15.6 2.16 15.2 2.16 12c0-3.2.01-3.58.07-4.85.15-3.23 1.66-4.77 4.92-4.92C8.42 2.21 8.8 2.2 12 2.2zM12 0C8.74 0 8.33.01 7.05.07 2.7.27.27 2.69.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.2 4.36 2.62 6.78 6.98 6.98 1.28.06 1.69.07 4.95.07s3.67-.01 4.95-.07c4.35-.2 6.78-2.62 6.98-6.98.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95C23.73 2.69 21.31.27 16.95.07 15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 12 18.16 6.16 6.16 0 0 0 12 5.84zm0 10.16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.41-11.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg>
       </a>
-      <a href="#" aria-label="YouTube" style="color: rgba(255,255,255,0.4)">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3 3 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3 3 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5A3 3 0 0 0 23.5 17.8C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>
+      <a href="https://www.youtube.com/channel/UCLNfTqcxgl2qpkiLy4r53rw/featured" target="_blank" rel="noopener" aria-label="YouTube">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3 3 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3 3 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5A3 3 0 0 0 23.5 17.8C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>
       </a>
     </div>
-    <div class="foot-rule"></div>
-    <p class="copy">© <span id="yr"></span> New Mercy Community Church. All rights reserved.</p>
   </div>
 </footer>
 
